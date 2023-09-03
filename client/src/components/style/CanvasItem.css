@@ -1,0 +1,8 @@
+.item {
+    padding: 20px;
+    border: 1px solid teal;
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
