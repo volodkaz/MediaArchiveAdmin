@@ -10,13 +10,11 @@ import org.vladimir.homearchiveauth.exception.LoginException;
 import org.vladimir.homearchiveauth.exception.RegistrationException;
 import org.vladimir.homearchiveauth.model.entity.ClientEntity;
 import org.vladimir.homearchiveauth.model.object.Client;
-import org.vladimir.homearchiveauth.model.object.ClientInfoWithTabs;
 import org.vladimir.homearchiveauth.model.object.Role;
 import org.vladimir.homearchiveauth.model.request.ClientRequest;
 import org.vladimir.homearchiveauth.model.response.ClientResponse;
 import org.vladimir.homearchiveauth.repository.ClientRepository;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -98,8 +96,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void deleteUser(String userName) {
-        repository.deleteActiveByClientNameAndIsDeleted(userName);
+    public void deleteUser(Long userId) {
+        repository.deleteActiveClient(userId);
     }
 
     @Override

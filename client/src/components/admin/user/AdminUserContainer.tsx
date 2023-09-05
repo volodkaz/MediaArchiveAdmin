@@ -32,7 +32,7 @@ const AdminUserContainer = () => {
         dispatch(fetchAllUsers(5))
     },[])
 
-    const removeUser = useCallback((id: string)=> {
+    const removeUser = useCallback((id: number)=> {
         dispatch(deleteUser(id))
     }, [])
 

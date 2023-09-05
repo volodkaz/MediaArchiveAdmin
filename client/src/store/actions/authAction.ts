@@ -1,6 +1,6 @@
 import $api, {createAppAsyncThunk} from "../../http";
 import AuthResponse from "../../models/responses/AuthResponse";
-import {IUserRequest} from "../../models/request/IUserRequest";
+import {IUserIdRequest, IUserRequest} from "../../models/request/IUserRequest";
 import {auth} from "../../utils/endpoints";
 import {AUTH_TOKEN} from "../../utils/constants";
 import {asyncThunkBody} from "./action";
@@ -28,7 +28,7 @@ export const registerUser = createAppAsyncThunk(
     }
 )
 
-async function logout(authRequest: IUserRequest) {
+async function logout(authRequest: IUserIdRequest) {
     const response = await $api.post<AuthResponse>(auth.logout, authRequest);
     localStorage.removeItem(AUTH_TOKEN)
     return response;
@@ -36,7 +36,7 @@ async function logout(authRequest: IUserRequest) {
 
 export const logoutUser = createAppAsyncThunk(
     'auth/logout',
-    async (authRequest:IUserRequest, {rejectWithValue, dispatch}) => {
+    async (authRequest:IUserIdRequest, {rejectWithValue, dispatch}) => {
         return await asyncThunkBody(authRequest, dispatch, rejectWithValue,
             logout, "Ошибка выхода");
     }

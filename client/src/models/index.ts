@@ -5,7 +5,8 @@ export interface IItem {
 }
 
 export interface IItemProps {
-    id: string;
+    id: number;
+    name: string;
 }
 
 interface IDefault{

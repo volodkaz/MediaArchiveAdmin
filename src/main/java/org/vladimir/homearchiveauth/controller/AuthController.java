@@ -19,6 +19,7 @@ import org.vladimir.homearchiveauth.exception.RegistrationException;
 import org.vladimir.homearchiveauth.exception.ValidationTokenException;
 import org.vladimir.homearchiveauth.model.object.Client;
 import org.vladimir.homearchiveauth.model.request.ClientRequest;
+import org.vladimir.homearchiveauth.model.request.UserIdRequest;
 import org.vladimir.homearchiveauth.model.response.AuthResponse;
 import org.vladimir.homearchiveauth.model.response.ClientResponse;
 import org.vladimir.homearchiveauth.model.response.ErrorResponse;
@@ -63,7 +64,7 @@ public class AuthController {
         assert clientRequest != null;
         Client client = clientService.checkCredentials(clientRequest);
         final String token = tokenService.generateToken(client);
-        final ClientResponse clientResponse = new ClientResponse(null, clientRequest.login(), true, new ArrayList<>(client.roles()));
+        final ClientResponse clientResponse = new ClientResponse(client.clientId(), client.clientName(), true, new ArrayList<>(client.roles()));
         return new AuthResponse(token, null, clientResponse, true);
     }
 
@@ -78,9 +79,9 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public AuthResponse logout(@RequestBody ClientRequest clientRequest){
-        assert clientRequest != null;
-        final ClientResponse clientResponse = new ClientResponse(null, clientRequest.login());
+    public AuthResponse logout(@RequestBody UserIdRequest user){
+        assert user != null;
+        final ClientResponse clientResponse = new ClientResponse(user.id(), user.login());
         return new AuthResponse(null, null, clientResponse, false);
     }
 

@@ -31,7 +31,7 @@ const NavComponent: React.FC<NavComponentProps> = React.memo(
                             {/*<Button variant={"outline-light"}>Админ панель</Button>*/}
                             <Button variant={"outline-light"}
                                     className={'ms-4'}
-                                    onClick={logoutHandler}
+                                    onClick={() => logoutHandler(user.client)}
                             >
                                 Выйти
                             </Button>

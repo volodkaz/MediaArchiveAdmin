@@ -7,7 +7,7 @@ interface ItemProps<T extends IItemProps>{
     props?: {};
     isActive: boolean;
     setActive: (item: T) => void;
-    deleteItem: (id: string) => void;
+    deleteItem: (id: number) => void;
 }
 
 export default function Item<T extends IItemProps>(props: ItemProps<T>){
@@ -27,7 +27,8 @@ export default function Item<T extends IItemProps>(props: ItemProps<T>){
                 active={props.isActive}
                 key={props.item.id}
             >
-                <div className={'d-flex justify-content-between'}>{props.item.id}
+                <div className={'d-flex justify-content-between'}>
+                    {props.item.name}
                 <Button
                     onClick={deleteHandler}
                     variant={"outline-info"}

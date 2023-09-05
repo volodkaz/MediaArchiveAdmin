@@ -4,7 +4,6 @@ import {Accordion} from "react-bootstrap";
 
 export interface IAccordionItem extends IItemProps{
     type: string;
-    name: string;
     item: React.ReactNode;
 }
 
@@ -18,7 +17,7 @@ export interface AccordionItemProps<T extends IAccordionItem>{
 
 function AccordionItem<T extends IAccordionItem>(props: AccordionItemProps<T>) {
     return (
-        <Accordion.Item eventKey={props.tab.id} {...props.props}>
+        <Accordion.Item eventKey={String(props.tab.id)} {...props.props}>
             <Accordion.Header>{props.tab.name}</Accordion.Header>
             {props.tab.item}
         </Accordion.Item>

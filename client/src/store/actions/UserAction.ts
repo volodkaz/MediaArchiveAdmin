@@ -13,7 +13,7 @@ export const createUser = createAppAsyncThunk<IUser, IUserRegisterRequest>(
 )
 export const deleteUser = createAppAsyncThunk(
     'user/deleteUser',
-    async (id:string, {rejectWithValue, dispatch}) => {
+    async (id:number, {rejectWithValue, dispatch}) => {
         return await asyncThunkBody(id, dispatch, rejectWithValue,
             () => $api.delete<IUser>(`${user.deleteUser}?userId=${id}`), 'Ошибка при удалении пользователя');
     }

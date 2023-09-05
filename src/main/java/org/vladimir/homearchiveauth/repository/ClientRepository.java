@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ClientRepository extends CrudRepository<ClientEntity, Long> {
     Optional<ClientEntity> findByClientNameAndIsDeleted(String name, Boolean isDeleted);
-    void deleteByClientNameAndIsDeleted(String name, Boolean isDeleted);
+    void deleteByClientIdAndIsDeleted(Long name, Boolean isDeleted);
     List<ClientEntity> findAllByIsDeleted(Boolean isDeleted);
 
     default Optional<ClientEntity> findActiveClientByName(String name){
@@ -17,8 +17,8 @@ public interface ClientRepository extends CrudRepository<ClientEntity, Long> {
     default Optional<ClientEntity> findDeletedClientByName(String name){
         return this.findByClientNameAndIsDeleted(name, true);
     }
-    default void deleteActiveByClientNameAndIsDeleted(String name){
-        this.deleteByClientNameAndIsDeleted(name, false);
+    default void deleteActiveClient(Long userId){
+        this.deleteByClientIdAndIsDeleted(userId, false);
     }
 
     default List<ClientEntity> findAllActiveClients(){

@@ -9,7 +9,7 @@ import {fetchUserInfo} from "../../../store/actions/UserInfoAction";
 const UserContentContainer: React.FC<UserContentContainerProps> = ({userId, login}) => {
     console.log('UserContentContainer')
     const [activeTab, setActiveTab] = useState<IUserAccordionItem>(tabInitialState);
-    const tabs = useTypedSelector(getUserInfo, isEqualsUsersInfo)
+    const tabs = useTypedSelector(getUserInfo)
     const isLoading = useTypedSelector(isUserInfoLoading)
 
     const dispatch = useTypedDispatch()

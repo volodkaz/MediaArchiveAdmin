@@ -16,7 +16,7 @@ public interface ClientService {
 
     List<ClientResponse> getAllClients(int limit);
 
-    void deleteUser(String userName);
+    void deleteUser(Long userId);
 
     Client createUser(ClientRequest clientRequest);
 }

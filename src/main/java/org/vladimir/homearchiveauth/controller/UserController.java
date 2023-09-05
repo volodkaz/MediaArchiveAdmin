@@ -42,9 +42,9 @@ public class UserController {
     }
 
     @DeleteMapping("deleteUser")
-    public ClientResponse deleteUser(@RequestParam String userName){
-        clientService.deleteUser(userName);
-        return new ClientResponse(null, userName);
+    public ClientResponse deleteUser(@RequestParam Long userId){
+        clientService.deleteUser(userId);
+        return new ClientResponse(userId, "");
     }
 
     @ExceptionHandler({CreateUserException.class})

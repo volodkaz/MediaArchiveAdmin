@@ -7,7 +7,7 @@ export interface AdminUsersProps{
     roles: Role[];
     isLoading: boolean;
     activeUser: IUser;
-    removeUserHandler: (id: string) => void;
+    removeUserHandler: (id: number) => void;
     createUserHandlerVisible: () => void;
     createRoleHandlerVisible: () => void;
     isCreateUserModalVisible: boolean;
