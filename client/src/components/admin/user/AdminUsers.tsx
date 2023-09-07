@@ -3,14 +3,11 @@ import {Button, Col, Container, Row, Spinner} from "react-bootstrap";
 import {IUser} from "../../../models/IUser";
 import Item from "../../Item";
 import List from "../../List";
-import CreateUserContainer from "../../modal/user/CreateUserContainer";
-import CreateNewRole from "../../modal/role/CreateNewRole";
 import {AdminUsersProps} from "../../../models/component/admin";
 import UserContentContainer from "./UserContentContainer";
 
-const AdminUsers: FC<AdminUsersProps> = ({users,activeUser, roles, isLoading, createUserHandlerVisible,
-                                         createRoleHandlerVisible, setActiveUserHandler, removeUserHandler, isCreateUserModalVisible,
-                                         onHideCreateUserHandler, isManageRolesModalVisible, onHideManageRoleHandler}) => {
+const AdminUsers: FC<AdminUsersProps> = ({users,activeUser, isLoading, createUserHandlerVisible,
+                                         createRoleHandlerVisible, setActiveUserHandler, removeUserHandler}) => {
 
     return (
         <Container className={'border border-2 rounded-2 pb-2'} fluid={true}>
@@ -56,12 +53,6 @@ const AdminUsers: FC<AdminUsersProps> = ({users,activeUser, roles, isLoading, cr
                         <UserContentContainer userId={Number(activeUser.id)} login={activeUser.name}/>
                     </Col>
                 </Row>
-
-            <CreateUserContainer show={isCreateUserModalVisible}
-                                 onHide={onHideCreateUserHandler}
-                                 setActive={setActiveUserHandler}
-                                 roles={roles}/>
-            <CreateNewRole show={isManageRolesModalVisible} onHide={onHideManageRoleHandler}/>
         </Container>
     );
 };

@@ -12,7 +12,6 @@ export interface AccordionItemProps<T extends IAccordionItem>{
     props?: {};
     isActive: boolean;
     setActive: (item: T) => void;
-    deleteItem: (id: number) => void;
 }
 
 function AccordionItem<T extends IAccordionItem>(props: AccordionItemProps<T>) {

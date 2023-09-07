@@ -6,6 +6,7 @@ import errorReducer from "./reducers/ErrorReducer";
 import userReducer from "./reducers/UserSlice";
 import roleReducer from "./reducers/RoleSlice";
 import userInfoReducer from "./reducers/UserInfoSlice"
+import userInfoTabTypeReducer from "./reducers/UserInfoTabTypesSlice"
 
 const rootReducer = combineReducers({
     authReducer: authReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     userReducer: userReducer,
     roleReducer: roleReducer,
     userInfoReducer: userInfoReducer,
+    userInfoTabTypeReducer: userInfoTabTypeReducer,
     // [authApi.reducerPath]: authApi.reducer,
     // [userApi.reducerPath]: userApi.reducer,
     [roleApi.reducerPath]: roleApi.reducer

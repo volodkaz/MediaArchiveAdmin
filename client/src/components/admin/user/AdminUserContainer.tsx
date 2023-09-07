@@ -8,6 +8,8 @@ import {deleteUser, fetchAllUsers} from "../../../store/actions/UserAction";
 import {fetchAllRoles} from "../../../store/actions/RoleAction";
 import AdminUsers from "./AdminUsers";
 import {IUser, userInitialState} from "../../../models/IUser";
+import CreateUserContainer from "../../modal/user/CreateUserContainer";
+import CreateNewRole from "../../modal/role/CreateNewRole";
 
 const AdminUserContainer = () => {
     console.log('AdminUsers')
@@ -52,10 +54,16 @@ const AdminUserContainer = () => {
     }, [])
 
     return (
-        <AdminUsers users={users} roles={roles} isLoading={isLoading} activeUser={activeUser} setActiveUserHandler={setActiveUserHandler}
-        createUserHandlerVisible={createUserHandlerVisible} createRoleHandlerVisible={createRoleHandlerVisible} removeUserHandler={removeUser}
-        onHideCreateUserHandler={onHideCreateUserHandler} onHideManageRoleHandler={onHideManageRoleHandler} isCreateUserModalVisible={isCreateUserModalVisible}
-        isManageRolesModalVisible={isManageRolesModalVisible}/>
+        <div  className={'container-fluid'}>
+            <AdminUsers users={users} isLoading={isLoading} activeUser={activeUser} setActiveUserHandler={setActiveUserHandler}
+                        createUserHandlerVisible={createUserHandlerVisible} createRoleHandlerVisible={createRoleHandlerVisible} removeUserHandler={removeUser}/>
+
+            <CreateUserContainer show={isCreateUserModalVisible}
+                                 onHide={onHideCreateUserHandler}
+                                 setActive={setActiveUserHandler}
+                                 roles={roles}/>
+            <CreateNewRole show={isManageRolesModalVisible} onHide={onHideManageRoleHandler}/>
+        </div>
     );
 };
 

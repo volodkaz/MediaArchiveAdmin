@@ -17,6 +17,12 @@ export enum userInfo{
     fetchUserInfo = "/userInfo/fetchUserInfo",
 
 }
+export enum userInfoTabType{
+    createUserInfoTabType = "/userInfoTab/createUserInfoTabType",
+    deleteUserInfoTabType = "/userInfoTab/deleteUserInfoTabType",
+    fetchUserInfoTabType = "/userInfoTab/fetchUserInfoTabType",
+
+}
 export enum role{
     createRole = "/role/createRole",
     deleteRole = "/role/deleteRole",

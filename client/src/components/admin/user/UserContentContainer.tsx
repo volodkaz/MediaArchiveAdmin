@@ -5,12 +5,14 @@ import {useTypedDispatch, useTypedSelector} from "../../../hook/useTypedSelector
 import {getUserInfo, isEqualsUsersInfo, isUserInfoLoading} from "../../../store/endpoints/userInfo";
 import {tabInitialState} from "../../../models/IUser";
 import {fetchUserInfo} from "../../../store/actions/UserInfoAction";
+import CreateUserInfoTabContainer from "../../modal/userinfo/CreateUserInfoTabContainer";
 
 const UserContentContainer: React.FC<UserContentContainerProps> = ({userId, login}) => {
     console.log('UserContentContainer')
     const [activeTab, setActiveTab] = useState<IUserAccordionItem>(tabInitialState);
     const tabs = useTypedSelector(getUserInfo)
     const isLoading = useTypedSelector(isUserInfoLoading)
+    const [isShowCreateUserTabModal, setShowCreateUserTabModal] = useState(false);
 
     const dispatch = useTypedDispatch()
 
@@ -22,9 +24,23 @@ const UserContentContainer: React.FC<UserContentContainerProps> = ({userId, logi
     const removeTabHandler = useCallback((id : number) => {
         // dispatch(deleteUserInfo)
     }, []);
+    const editTabHandler = useCallback(() => {
+        // dispatch(deleteUserInfo)
+    }, []);
+    const addTabHandler = useCallback(() => {
+        setShowCreateUserTabModal(true)
+        // dispatch(deleteUserInfo)
+    }, []);
+    const saveTabHandler = useCallback((tab : IUserAccordionItem) => {
+        // dispatch(deleteUserInfo)
+    }, []);
 
     return (
-        <UserContent tabs={tabs} setActive={setActiveTabHandler} activeTab={activeTab} deleteTab={removeTabHandler} isLoading={isLoading}/>
+        <div className={'container-fluid'}>
+            <UserContent tabs={tabs} setActive={setActiveTabHandler} activeTab={activeTab} deleteTabHandler={removeTabHandler}
+                         isLoading={isLoading} editTabHandler={editTabHandler} addTabHandler={addTabHandler} saveTabHandler={saveTabHandler}/>
+            <CreateUserInfoTabContainer show={isShowCreateUserTabModal} setShow={setShowCreateUserTabModal}/>
+        </div>
     );
 };
 

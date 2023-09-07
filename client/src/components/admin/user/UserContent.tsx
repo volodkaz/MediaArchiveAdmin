@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Spinner} from 'react-bootstrap';
+import {Button, ButtonGroup, Container, Spinner} from 'react-bootstrap';
 import {UserContentProps} from "../../../models/component/admin";
 import AccordionList from "../../AccordionList";
 import {IUserTab} from "../../../models/IUser";
@@ -10,10 +10,30 @@ export interface IUserAccordionItem extends IAccordionItem {
 
 }
 
-const UserContent: React.FC<UserContentProps> = ({tabs, activeTab, setActive, deleteTab, isLoading}) => {
+const UserContent: React.FC<UserContentProps> = ({tabs, activeTab, setActive, deleteTabHandler,
+                                                     isLoading, editTabHandler, addTabHandler, saveTabHandler}) => {
     return (
         <Container className={'border border-2 rounded-2 adminNameCol'}>
             { isLoading && <Spinner animation={"grow"}/> }
+            <ButtonGroup aria-label="Basic example" className={'d-flex justify-content: center'}>
+                <Button variant="outline-primary"
+                        onClick={addTabHandler}
+                >
+                    Создать вкладку
+                </Button>
+                <Button variant="outline-primary"
+                        onClick={editTabHandler}
+                        disabled={!!activeTab}
+                >
+                    Изменить вкладка
+                </Button>
+                <Button variant="outline-primary"
+                        onClick={() => deleteTabHandler(activeTab.id)}
+                        disabled={!!activeTab}
+                >
+                    Удалить влкладку
+                </Button>
+            </ButtonGroup>
             <AccordionList<IUserTab>
                 tabs={tabs}
                 renderType={
@@ -29,7 +49,6 @@ const UserContent: React.FC<UserContentProps> = ({tabs, activeTab, setActive, de
                             }
                             isActive={tabItem.id === activeTab.id}
                             setActive={setActive}
-                            deleteItem={deleteTab}
                             key={tabItem.id}
                         />
                 }
