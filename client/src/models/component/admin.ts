@@ -19,6 +19,7 @@ export interface UserContentContainerProps {
 
 export interface UserContentProps {
     tabs: IUserTab[];
+    activeUserId: number;
     activeTab: IUserAccordionItem;
     setActive: (tab: IUserAccordionItem) => void;
     addTabHandler: () => void;

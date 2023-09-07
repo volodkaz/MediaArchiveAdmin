@@ -16,6 +16,7 @@ import org.vladimir.homearchiveauth.domain.clientinfo.ClientInfoService;
 import org.vladimir.homearchiveauth.exception.UserInfoException;
 import org.vladimir.homearchiveauth.model.object.ClientInfoWithTabs;
 import org.vladimir.homearchiveauth.model.request.ClientInfoRequest;
+import org.vladimir.homearchiveauth.model.request.ClientTabRequest;
 import org.vladimir.homearchiveauth.model.response.ClientInfoContainerResponse;
 import org.vladimir.homearchiveauth.model.response.ErrorResponse;
 
@@ -37,7 +38,7 @@ public class UserInfoController {
     }
 
     @PostMapping("createUserInfo")
-    public ClientInfoContainerResponse createUserInfo(@RequestBody List<ClientInfoRequest> clientInfoRequest){
+    public ClientInfoContainerResponse createUserInfo(@RequestBody ClientTabRequest clientInfoRequest){
 //        assert clientRequest.clientId() != null && clientRequest.clientSecret() != null;
         ClientInfoWithTabs clientInfo = service.createUserInfo(clientInfoRequest);
         return mapper.objectToResponse(clientInfo);

@@ -11,13 +11,14 @@ export interface IUserAccordionItem extends IAccordionItem {
 }
 
 const UserContent: React.FC<UserContentProps> = ({tabs, activeTab, setActive, deleteTabHandler,
-                                                     isLoading, editTabHandler, addTabHandler, saveTabHandler}) => {
+                                                     isLoading, editTabHandler, addTabHandler, saveTabHandler, activeUserId}) => {
     return (
         <Container className={'border border-2 rounded-2 adminNameCol'}>
             { isLoading && <Spinner animation={"grow"}/> }
             <ButtonGroup aria-label="Basic example" className={'d-flex justify-content: center'}>
                 <Button variant="outline-primary"
                         onClick={addTabHandler}
+                        disabled={activeUserId === 0}
                 >
                     Создать вкладку
                 </Button>

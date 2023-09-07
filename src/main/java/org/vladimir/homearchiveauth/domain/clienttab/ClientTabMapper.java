@@ -7,6 +7,7 @@ import org.vladimir.homearchiveauth.domain.clienttabproperty.ClientTabPropertyMa
 import org.vladimir.homearchiveauth.model.entity.ClientTabEntity;
 import org.vladimir.homearchiveauth.model.object.ClientTab;
 import org.vladimir.homearchiveauth.model.object.ClientTabWithInfoData;
+import org.vladimir.homearchiveauth.model.request.ClientTabRequest;
 import org.vladimir.homearchiveauth.model.response.ClientTabResponse;
 
 @Mapper(componentModel = "spring", uses = {DateMapper.class, ClientTabPropertyMapper.class, ClientTabTypeMapper.class})
@@ -19,4 +20,8 @@ public interface ClientTabMapper {
     @Mapping(target = "comment", source = "tab.comment")
     @Mapping(target = "tabType", source = "tab.tabType")
     ClientTabResponse objectToResponse(ClientTabWithInfoData tab);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "type.id", source = "tabTypeId")
+    ClientTabEntity requestToObject(ClientTabRequest request);
 }

@@ -2,12 +2,13 @@ import {asyncThunkBody} from "./action";
 import $api, {createAppAsyncThunk} from "../../http/index";
 import {IUserInfo, IUserTabContainer} from "../../models/IUser";
 import {userInfo} from "../../utils/endpoints";
+import {InfoTabRequest} from "../../components/modal/userinfo/CreateUserInfoProps";
 
-export const createUserInfo = createAppAsyncThunk<IUserInfo, IUserInfo>(
+export const createUserInfo = createAppAsyncThunk<IUserInfo, InfoTabRequest>(
     'userInfo/createUserInfo',
-    async (userInfoRequest:IUserInfo, {rejectWithValue, dispatch}) => {
-        return await asyncThunkBody<IUserInfo, IUserTabContainer>(userInfoRequest, dispatch, rejectWithValue,
-            () => $api.post<IUserTabContainer>(userInfo.createUserInfo, userInfoRequest), 'Ошибка при создании пользовательских данных');
+    async (userInfoTabRequest:InfoTabRequest, {rejectWithValue, dispatch}) => {
+        return await asyncThunkBody<InfoTabRequest, IUserTabContainer>(userInfoTabRequest, dispatch, rejectWithValue,
+            () => $api.post<IUserTabContainer>(userInfo.createUserInfo, userInfoTabRequest), 'Ошибка при создании пользовательских данных');
     }
 )
 export const updateUserInfo = createAppAsyncThunk<IUserInfo, IUserInfo>(

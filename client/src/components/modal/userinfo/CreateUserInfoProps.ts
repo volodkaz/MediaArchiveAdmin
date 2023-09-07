@@ -7,18 +7,21 @@ export default interface CreateUserInfoProps{
     onHideHandler: () => void;
     tabTypes: IUserTabType[];
     isLoading: boolean;
-    onSubmit: SubmitHandler<InfoTabFoCreate>;
-    useFormReturn: UseFormReturn<InfoTabFoCreate>;
-    formState: FormState<InfoTabFoCreate>;
+    onSubmit: SubmitHandler<InfoTabRequest>;
+    useFormReturn: UseFormReturn<InfoTabRequest>;
+    formState: FormState<InfoTabRequest>;
 }
 
 export interface CreateUserInfoTabContainerProps{
     show: boolean;
-    setShow: (show: boolean) => void
+    setShow: (show: boolean) => void;
+    userId: number;
     // setActive: (tab: IUserTabType) => void;
 }
 
-export interface InfoTabFoCreate{
+export interface InfoTabRequest {
     name: string;
-    tagId: number;
+    tabTypeId: number;
+    userId: number;
+    comment: string;
 }

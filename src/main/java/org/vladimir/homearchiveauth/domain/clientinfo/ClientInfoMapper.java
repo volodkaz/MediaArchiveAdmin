@@ -1,11 +1,13 @@
 package org.vladimir.homearchiveauth.domain.clientinfo;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.vladimir.homearchiveauth.domain.DateMapper;
 import org.vladimir.homearchiveauth.domain.clienttab.ClientTabMapper;
 import org.vladimir.homearchiveauth.domain.clienttabproperty.ClientTabPropertyMapper;
 import org.vladimir.homearchiveauth.model.entity.ClientInfoEntity;
 import org.vladimir.homearchiveauth.model.entity.ClientTabEntity;
+import org.vladimir.homearchiveauth.model.entity.ClientTabPropSettingEntity;
 import org.vladimir.homearchiveauth.model.entity.ClientTabPropertyEntity;
 import org.vladimir.homearchiveauth.model.object.ClientInfo;
 import org.vladimir.homearchiveauth.model.object.ClientInfoWithTabs;
@@ -14,6 +16,7 @@ import org.vladimir.homearchiveauth.model.object.ClientTabProperty;
 import org.vladimir.homearchiveauth.model.object.ClientTabPropertyWithData;
 import org.vladimir.homearchiveauth.model.object.ClientTabType;
 import org.vladimir.homearchiveauth.model.object.ClientTabWithInfoData;
+import org.vladimir.homearchiveauth.model.request.ClientTabRequest;
 import org.vladimir.homearchiveauth.model.response.ClientInfoContainerResponse;
 
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public interface ClientInfoMapper {
 
         for (ClientTabEntity tabEntity : tabs) {
             final List<ClientInfoEntity> allInfosForClientByTag = allInfosForClient.stream()
-                    .filter(entity -> entity.getTabSettings().getTab().getId() == tabEntity.getId()).collect(Collectors.toList());
+                    .filter(entity -> entity.getTabSettings().getTab().getId().equals(tabEntity.getId())).collect(Collectors.toList());
             ClientTabWithInfoData tab = getListByProperty(tabEntity, allInfosForClientByTag);
             clientInfoWithTabs.tabs().add(tab);
         }
@@ -53,7 +56,7 @@ public interface ClientInfoMapper {
         for (ClientTabPropertyEntity property : properties) {
 
             final List<ClientInfo> infos = allInfosForClient.stream()
-                    .filter(entity -> entity.getTabSettings().getProperty().getId() == property.getId())
+                    .filter(entity -> entity.getTabSettings().getProperty().getId().equals(property.getId()))
                     .map(entity -> new ClientInfo(entity.getId(), entity.getData(), entity.getModifyClient())).collect(Collectors.toList());
 
             final ClientTabPropertyWithData clientTabPropertyWithData = new ClientTabPropertyWithData(
@@ -63,4 +66,25 @@ public interface ClientInfoMapper {
         }
         return tab;
     }
+
+//    @Mapping(target = "id", ignore = true)
+//    @Mapping(target = "createDate", ignore = true)
+//    @Mapping(target = "modifyDate", ignore = true)
+//    @Mapping(target = "data", ignore = true)
+//    @Mapping(target = "isDelete", ignore = true)
+//    @Mapping(target = "tabSettings", source = "")
+//    @Mapping(target = "clientId", source = "userId")
+//    @Mapping(target = "modifyClient", source = "userId")
+//    ClientInfoEntity requestToObject(ClientTabRequest request);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createDate", ignore = true)
+    @Mapping(target = "modifyDate", ignore = true)
+    @Mapping(target = "data", ignore = true)
+    @Mapping(target = "isDelete", constant = "false")
+    @Mapping(target = "clientId", source = "request.userId")
+    @Mapping(target = "modifyClient", source = "request.userId")
+    @Mapping(target = "tabSettings", source = "entity")
+    ClientInfoEntity settingsToInfo(ClientTabPropSettingEntity entity,
+                                    ClientTabRequest request);
 }

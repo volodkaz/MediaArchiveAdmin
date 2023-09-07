@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import CreateUserInfoTab from "./CreateUserInfoTab";
-import {CreateUserInfoTabContainerProps, InfoTabFoCreate} from "./CreateUserInfoProps";
+import {CreateUserInfoTabContainerProps, InfoTabRequest} from "./CreateUserInfoProps";
 import {useTypedDispatch, useTypedSelector} from "../../../hook/useTypedSelector";
 import {
     getUserInfoTabTypes,
@@ -10,8 +10,9 @@ import {
 import {fetchUserInfoTabTypes} from "../../../store/actions/UserInfoTabTypesAction";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {FormState, UseFormReturn} from "react-hook-form/dist/types/form";
+import {createUserInfo} from "../../../store/actions/UserInfoAction";
 
-const CreateUserInfoTabContainer: React.FC<CreateUserInfoTabContainerProps> = React.memo(({show, setShow}) => {
+const CreateUserInfoTabContainer: React.FC<CreateUserInfoTabContainerProps> = React.memo(({show, setShow, userId}) => {
     const tabTypes = useTypedSelector(getUserInfoTabTypes, isEqualsUsersInfoTabTypes);
     const dispatch = useTypedDispatch();
     const isLoading = useTypedSelector(isUserInfoTabTypeLoading);
@@ -22,20 +23,21 @@ const CreateUserInfoTabContainer: React.FC<CreateUserInfoTabContainerProps> = Re
 
     const onHideHandler = useCallback(() => {
         setValue('name', '');
-        setValue('tagId', -1);
+        setValue('tabTypeId', -1);
         setShow(false);
     }, []);
 
-    const onSubmit: SubmitHandler<InfoTabFoCreate> = (data) => {
-        console.log(data)
+    const onSubmit: SubmitHandler<InfoTabRequest> = async (data) => {
+        data.userId = userId;
+        await dispatch(createUserInfo(data));
     }
 
-    const {register, control, handleSubmit, setValue, formState: {errors, isValid}} = useForm<InfoTabFoCreate>()
+    const {register, control, handleSubmit, setValue, formState: {errors, isValid}} = useForm<InfoTabRequest>()
 
     return (
         <CreateUserInfoTab show={show} onHideHandler={onHideHandler} tabTypes={tabTypes} isLoading={isLoading}
-                           useFormReturn={{register, control, handleSubmit} as UseFormReturn<InfoTabFoCreate>}
-                           formState={{errors, isValid} as FormState<InfoTabFoCreate>}
+                           useFormReturn={{register, control, handleSubmit} as UseFormReturn<InfoTabRequest>}
+                           formState={{errors, isValid} as FormState<InfoTabRequest>}
                            onSubmit={onSubmit}
         />
     );

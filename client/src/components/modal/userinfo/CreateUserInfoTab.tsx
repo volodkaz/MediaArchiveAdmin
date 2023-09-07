@@ -26,12 +26,23 @@ const CreateUserInfoTab: React.FC<CreateUserInfoProps> = React.memo(({tabTypes, 
                                               }, ))
                                       }
                         />
-                        {formState.errors && <div style={{color: 'red'}}>{formState.errors.name?.message}</div>}
+                        {formState.errors.name && <div style={{color: 'red'}}>{formState.errors.name.message}</div>}
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label htmlFor="tabCommentInputModal">Название вкладки</Form.Label>
+                        <Form.Control id="tabCommentInputModal" placeholder="Комментарий"
+                                      {...(useFormReturn.register('comment',
+                                              {
+                                                  required: "Обязательное поле"
+                                              }, ))
+                                      }
+                        />
+                        {formState.errors.comment && <div style={{color: 'red'}}>{formState.errors.comment?.message}</div>}
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label htmlFor="tabTypeInputModal">Тип вкладки</Form.Label>
                         <Controller control={useFormReturn.control}
-                                    name={'tagId'}
+                                    name={'tabTypeId'}
                                     rules={
                                         {
                                             min: {

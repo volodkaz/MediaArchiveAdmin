@@ -38,8 +38,10 @@ const UserContentContainer: React.FC<UserContentContainerProps> = ({userId, logi
     return (
         <div className={'container-fluid'}>
             <UserContent tabs={tabs} setActive={setActiveTabHandler} activeTab={activeTab} deleteTabHandler={removeTabHandler}
-                         isLoading={isLoading} editTabHandler={editTabHandler} addTabHandler={addTabHandler} saveTabHandler={saveTabHandler}/>
-            <CreateUserInfoTabContainer show={isShowCreateUserTabModal} setShow={setShowCreateUserTabModal}/>
+                         isLoading={isLoading} editTabHandler={editTabHandler} addTabHandler={addTabHandler} saveTabHandler={saveTabHandler}
+                         activeUserId={userId}
+            />
+            <CreateUserInfoTabContainer show={isShowCreateUserTabModal} setShow={setShowCreateUserTabModal} userId={userId}/>
         </div>
     );
 };
