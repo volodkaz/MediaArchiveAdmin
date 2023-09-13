@@ -3,7 +3,7 @@ import {IItemProps} from "../models/index";
 import {Accordion} from "react-bootstrap";
 
 export interface IAccordionItem extends IItemProps{
-    type: string;
+    type: number;
     item: React.ReactNode;
 }
 

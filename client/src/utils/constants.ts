@@ -20,7 +20,7 @@ export enum UserInfoProperty{
 }
 
 export enum UserNotesTypeNames {
-    USER_DETAILS = "userDetails",
-    USER_NOTES = "userNotes",
-    DEFAULT = "default"
+    USER_DETAILS = 1,
+    USER_NOTES = 2,
+    DEFAULT = 3
 }

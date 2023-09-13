@@ -3,25 +3,25 @@ import {IUserTabContainer, IUserTabType} from "../../models/IUser";
 import {asyncThunkBody} from "./action";
 import {userInfoTabType} from "../../utils/endpoints";
 
-export const createUserInfoTabType = createAppAsyncThunk<IUserTabType[], IUserTabType>(
+export const createUserTab = createAppAsyncThunk<IUserTabType[], IUserTabType>(
     'userInfoTab/createTabType',
     async (userInfoRequest:IUserTabType, {rejectWithValue, dispatch}) => {
         return await asyncThunkBody<IUserTabType, IUserTabContainer>(userInfoRequest, dispatch, rejectWithValue,
-            () => $api.post<IUserTabContainer>(userInfoTabType.createUserInfoTabType, userInfoRequest), 'Ошибка при создании типа вкладки');
+            () => $api.post<IUserTabContainer>(userInfoTabType.createUserTab, userInfoRequest), 'Ошибка при создании типа вкладки');
     }
 )
 
-export const deleteUserInfoTabType = createAppAsyncThunk(
+export const deleteUserTab = createAppAsyncThunk(
     'userInfoTab/deleteTabType',
     async (id:number, {rejectWithValue, dispatch}) => {
         return await asyncThunkBody<number, IUserTabType[]>(id, dispatch, rejectWithValue,
-            () => $api.delete<IUserTabType[]>(`${userInfoTabType.deleteUserInfoTabType}?userId=${id}`), 'Ошибка при удалении типа вкладки');
+            () => $api.delete<IUserTabType[]>(`${userInfoTabType.deleteUserTab}?userId=${id}`), 'Ошибка при удалении типа вкладки');
     }
 )
-export const fetchUserInfoTabTypes = createAppAsyncThunk(
+export const fetchUserTabs = createAppAsyncThunk(
     'userInfoTab/fetchTabType',
     async (limit:number, {rejectWithValue, dispatch}) => {
         return await asyncThunkBody<number, IUserTabType[]>(limit, dispatch, rejectWithValue,
-            () => $api.get<IUserTabType[]>(`${userInfoTabType.fetchUserInfoTabType}?limit=${limit}`), 'Ошибка при загрузке типов вкладок');
+            () => $api.get<IUserTabType[]>(`${userInfoTabType.fetchUserTab}?limit=${limit}`), 'Ошибка при загрузке типов вкладок');
     }
 )

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public record Client(Long clientId, String clientName, String clientSecret, String refreshToken, Set<String> roles) {
+public record Client(Long id, String name, String secret, String refreshToken, Set<String> roles) {
     public Client(Long clientId, String clientName){
         this(clientId, clientName, null, null, Collections.emptySet());
     }

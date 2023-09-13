@@ -1,4 +1,4 @@
-insert into client_tab_property(name, property_comment, create_date)
+insert into client_tab_property(name, comment, create_date)
 values ('Фамилия', 'Фамилия', current_timestamp),
        ('Имя', 'Имя', current_timestamp),
        ('Отчество', 'Отчество', current_timestamp),

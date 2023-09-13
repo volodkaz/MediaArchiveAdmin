@@ -29,7 +29,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void register(ClientRequest clientRequest) {
-        if(clientRequest.login().isEmpty() || clientRequest.clientSecret().isEmpty()){
+        if(clientRequest.login().isEmpty() || clientRequest.secret().isEmpty()){
             throw new RegistrationException("Не указаны обязательные атрибуты");
         }
         if(repository.findActiveClientByName(clientRequest.login()).isPresent()){
@@ -46,9 +46,9 @@ public class ClientServiceImpl implements ClientService {
 
         final Client client = mapper.requestToObject(clientRequest, roles);
 
-        String hash = BCrypt.hashpw(client.clientSecret(), BCrypt.gensalt());
+        String hash = BCrypt.hashpw(client.secret(), BCrypt.gensalt());
         ClientEntity entity = mapper.objectToEntity(client, roles);
-        entity.setClientPassword(hash);
+        entity.setPassword(hash);
         entity.setCreateDate(new Date());
 
         repository.save(entity);
@@ -59,7 +59,7 @@ public class ClientServiceImpl implements ClientService {
     public Client checkCredentials(ClientRequest clientRequest) {
         final ClientEntity entity = repository.findActiveClientByName(clientRequest.login())
                 .orElseThrow(() -> new LoginException("Пользователь с ником: " + clientRequest.login() + " не существует"));
-        if(!BCrypt.checkpw(clientRequest.clientSecret(), entity.getClientPassword())){
+        if(!BCrypt.checkpw(clientRequest.secret(), entity.getPassword())){
             throw new LoginException("Пароль не верный");
         }
         return mapper.entityToObject(entity);
@@ -76,15 +76,15 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client getClient(ClientRequest clientRequest) {
-        final ClientEntity entity = repository.findActiveClientByName(clientRequest.clientSecret())
-                .orElseThrow(() -> new LoginException("Client with id: " + clientRequest.login() + " not found"));
-        return mapper.entityToObject(entity, clientRequest.clientSecret());
+        final ClientEntity entity = repository.findActiveClientByName(clientRequest.login())
+                .orElseThrow(() -> new LoginException("Client with tabId: " + clientRequest.login() + " not found"));
+        return mapper.entityToObject(entity, clientRequest.secret());
     }
 
     @Override
     public Client getClientByName(String name) {
         final ClientEntity entity = repository.findActiveClientByName(name)
-                .orElseThrow(() -> new LoginException("Client with id: " + name + " not found"));
+                .orElseThrow(() -> new LoginException("Client with tabId: " + name + " not found"));
         return mapper.entityToObject(entity);
     }
 
@@ -102,7 +102,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client createUser(ClientRequest clientRequest) {
-        if(clientRequest.login().isEmpty() || clientRequest.clientSecret().isEmpty()){
+        if(clientRequest.login().isEmpty() || clientRequest.secret().isEmpty()){
             throw new CreateUserException("Не указаны обязательные атрибуты");
         }
         if(repository.findActiveClientByName(clientRequest.login()).isPresent()){

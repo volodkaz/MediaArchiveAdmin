@@ -42,7 +42,7 @@ const CreateUserInfoTab: React.FC<CreateUserInfoProps> = React.memo(({tabTypes, 
                     <Form.Group className="mb-3">
                         <Form.Label htmlFor="tabTypeInputModal">Тип вкладки</Form.Label>
                         <Controller control={useFormReturn.control}
-                                    name={'tabTypeId'}
+                                    name={'tabId'}
                                     rules={
                                         {
                                             min: {

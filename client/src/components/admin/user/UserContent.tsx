@@ -43,7 +43,7 @@ const UserContent: React.FC<UserContentProps> = ({tabs, activeTab, setActive, de
                             tab={
                                 {
                                     id: tabItem.id,
-                                    type: tabItem.tabType.name,
+                                    type: tabItem.tab.id,
                                     name: tabItem.name,
                                     item: <UserAccordionBody tab={tabItem}/>
                                 }

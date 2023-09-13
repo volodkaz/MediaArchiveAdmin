@@ -14,6 +14,7 @@ import org.vladimir.homearchiveauth.domain.role.RoleService;
 import org.vladimir.homearchiveauth.model.object.Role;
 import org.vladimir.homearchiveauth.model.request.RoleRequest;
 
+import java.util.Optional;
 import java.util.Set;
 @CrossOrigin(origins = {"http://localhost:3000"}, allowCredentials = "true")
 @RestController
@@ -40,8 +41,8 @@ public class RoleController {
 
     @PostMapping("/deleteRole")
     public ResponseEntity<String> deleteRole(@RequestBody RequestEntity<Role> roleRequest){
-        final Role role = roleRequest.getBody();
-        service.deleteRole(role.name());
+        Optional.ofNullable(roleRequest.getBody())
+                .ifPresent(role -> service.deleteRole(role.name()));
         return ResponseEntity.ok("Deleted new role successful");
     }
 

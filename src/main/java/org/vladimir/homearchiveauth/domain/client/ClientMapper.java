@@ -7,7 +7,6 @@ import org.vladimir.homearchiveauth.domain.DateMapper;
 import org.vladimir.homearchiveauth.domain.role.RoleMapper;
 import org.vladimir.homearchiveauth.model.entity.ClientEntity;
 import org.vladimir.homearchiveauth.model.object.Client;
-import org.vladimir.homearchiveauth.model.object.ClientInfoWithTabs;
 import org.vladimir.homearchiveauth.model.object.Role;
 import org.vladimir.homearchiveauth.model.request.ClientRequest;
 import org.vladimir.homearchiveauth.model.response.ClientResponse;
@@ -18,35 +17,35 @@ import java.util.Set;
 
 @Mapper(componentModel = "spring", uses = {DateMapper.class, RoleMapper.class})
 public interface ClientMapper {
-    @Mapping(target = "clientPassword", ignore = true)
-    @Mapping(target = "clientName", source = "clientId")
-    @Mapping(target = "clientId", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "name", source = "id")
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "isDeleted", ignore = true)
     @Mapping(target = "createDate", ignore = true)
     @Mapping(target = "modifyDate", ignore = true)
     ClientEntity objectToEntity(Client client);
 
     @Mapping(target = "roles", ignore = true)
-    @Mapping(target = "clientName", source = "login")
+    @Mapping(target = "name", source = "login")
     @Mapping(target = "refreshToken", ignore = true)
-    @Mapping(target = "clientId", ignore = true)
+    @Mapping(target = "id", ignore = true)
     Client requestToObject(ClientRequest request);
 
 //    @Mapping(target = "clientPassword", ignore = true)
-//    @Mapping(target = "clientName", source = "clientId")
-//    @Mapping(target = "clientId", ignore = true)
+//    @Mapping(target = "name", source = "tabId")
+//    @Mapping(target = "tabId", ignore = true)
 //    @Mapping(target = "isDeleted", ignore = true)
 //    @Mapping(target = "createDate", ignore = true)
 //    @Mapping(target = "modifyDate", ignore = true)
 //    ClientEntity requestToEntity(ClientRequest clientRequest);
 
-    @Mapping(target = "clientSecret", ignore = true)
+    @Mapping(target = "secret", ignore = true)
     Client entityToObject(ClientEntity entity);
 
-    Client entityToObject(ClientEntity entity, String clientSecret);
+    Client entityToObject(ClientEntity entity, String secret);
 
-    @Mapping(target = "name", source = "clientName")
-    @Mapping(target = "id", source = "clientId")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "isAdmin", qualifiedByName = "initIsAdminByRole", source = "roles")
     @Mapping(target = "isActivated", ignore = true)
     ClientResponse entityToResponse(ClientEntity entity);
@@ -59,13 +58,13 @@ public interface ClientMapper {
     }
 
     @Mapping(target = "roles", source = "roles")
-    @Mapping(target = "clientName", source = "clientRequest.login")
+    @Mapping(target = "name", source = "clientRequest.login")
     @Mapping(target = "refreshToken", ignore = true)
-    @Mapping(target = "clientId", ignore = true)
+    @Mapping(target = "id", ignore = true)
     Client requestToObject(ClientRequest clientRequest, Set<Role> roles);
 
-    @Mapping(target = "clientPassword", ignore = true)
-    @Mapping(target = "clientId", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "isDeleted", constant = "false")
     @Mapping(target = "createDate", ignore = true)
     @Mapping(target = "modifyDate", ignore = true)

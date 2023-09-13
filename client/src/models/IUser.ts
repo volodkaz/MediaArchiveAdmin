@@ -25,8 +25,8 @@ export interface IUserTabType extends IItemProps{
     comment:string;
 }
 export interface IUserTab extends IUserInfoItemProperty{
-    tabType: IUserTabType;
-    property: IUserTabProperty[];
+    tab: IUserTabType;
+    properties: IUserTabProperty[];
 }
 
 export interface IUserInfo extends IItemProps{

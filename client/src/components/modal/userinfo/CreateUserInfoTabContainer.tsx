@@ -7,7 +7,7 @@ import {
     isEqualsUsersInfoTabTypes,
     isUserInfoTabTypeLoading
 } from "../../../store/endpoints/userInfoTab";
-import {fetchUserInfoTabTypes} from "../../../store/actions/UserInfoTabTypesAction";
+import {fetchUserTabs} from "../../../store/actions/UserInfoTabTypesAction";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {FormState, UseFormReturn} from "react-hook-form/dist/types/form";
 import {createUserInfo} from "../../../store/actions/UserInfoAction";
@@ -18,12 +18,12 @@ const CreateUserInfoTabContainer: React.FC<CreateUserInfoTabContainerProps> = Re
     const isLoading = useTypedSelector(isUserInfoTabTypeLoading);
 
     useEffect(() => {
-        dispatch(fetchUserInfoTabTypes(0));
+        dispatch(fetchUserTabs(0));
     }, [])
 
     const onHideHandler = useCallback(() => {
         setValue('name', '');
-        setValue('tabTypeId', -1);
+        setValue('tabId', -1);
         setShow(false);
     }, []);
 

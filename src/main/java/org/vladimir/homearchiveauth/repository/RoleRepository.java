@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RoleRepository extends CrudRepository<RoleEntity, Long> {
-    Optional<RoleEntity> findRoleByRoleName(String name);
-    void deleteByRoleName(String name);
-    List<RoleEntity> findAllByRoleNameIn(Collection<String> names);
-    List<RoleEntity> findAllByRoleTypeNotOrRoleTypeNull(RoleTypes roleTypes);
+    Optional<RoleEntity> findRoleByName(String name);
+    void deleteByName(String name);
+    List<RoleEntity> findAllByNameIn(Collection<String> names);
+    List<RoleEntity> findAllByTypeNotOrTypeNull(RoleTypes roleTypes);
 
     default List<RoleEntity> findAllNotHideRoles(){
-        return findAllByRoleTypeNotOrRoleTypeNull(RoleTypes.HIDE);
+        return findAllByTypeNotOrTypeNull(RoleTypes.HIDE);
     }
 }

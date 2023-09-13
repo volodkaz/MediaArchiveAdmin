@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.vladimir.homearchiveauth.domain.clientinfo.ClientInfoMapper;
 import org.vladimir.homearchiveauth.domain.clientinfo.ClientInfoService;
 import org.vladimir.homearchiveauth.exception.UserInfoException;
-import org.vladimir.homearchiveauth.model.object.ClientInfoWithTabs;
-import org.vladimir.homearchiveauth.model.request.ClientInfoRequest;
+import org.vladimir.homearchiveauth.model.object.ClientInfoTab;
+import org.vladimir.homearchiveauth.model.request.ClientInfoContainerRequest;
 import org.vladimir.homearchiveauth.model.request.ClientTabRequest;
-import org.vladimir.homearchiveauth.model.response.ClientInfoContainerResponse;
+import org.vladimir.homearchiveauth.model.response.ClientInfoTabResponse;
 import org.vladimir.homearchiveauth.model.response.ErrorResponse;
 
 import java.util.List;
@@ -32,28 +32,29 @@ public class UserInfoController {
     private final ClientInfoMapper mapper;
 
     @GetMapping("/fetchUserInfo")
-    public ClientInfoContainerResponse getUserInfo(@RequestParam Long userId){
-        final ClientInfoWithTabs clientInfo = service.getClientInfo(userId);
+    public List<ClientInfoTabResponse> getUserInfo(@RequestParam Long userId){
+        final List<ClientInfoTab> clientInfo = service.getClientInfo(userId);
         return mapper.objectToResponse(clientInfo);
     }
 
     @PostMapping("createUserInfo")
-    public ClientInfoContainerResponse createUserInfo(@RequestBody ClientTabRequest clientInfoRequest){
-//        assert clientRequest.clientId() != null && clientRequest.clientSecret() != null;
-        ClientInfoWithTabs clientInfo = service.createUserInfo(clientInfoRequest);
-        return mapper.objectToResponse(clientInfo);
+    public List<ClientInfoTabResponse> createUserInfo(@RequestBody ClientTabRequest request){
+//        assert clientRequest.tabId() != null && clientRequest.secret() != null;
+        List<ClientInfoTab> clientInfo = service.createUserInfo(request);
+        final List<ClientInfoTab> clientInfo1 = service.getClientInfo(request.userId());
+        return mapper.objectToResponse(clientInfo1);
     }
 
     @PostMapping("updateUserInfo")
-    public ClientInfoContainerResponse updateUserInfo(@RequestBody List<ClientInfoRequest> clientInfoRequest){
-//        assert clientRequest.clientId() != null && clientRequest.clientSecret() != null;
-        ClientInfoWithTabs clientInfo = service.updateUserInfo(clientInfoRequest);
+    public List<ClientInfoTabResponse> updateUserInfo(@RequestBody ClientInfoContainerRequest clientInfoRequest){
+//        assert clientRequest.tabId() != null && clientRequest.secret() != null;
+        List<ClientInfoTab> clientInfo = service.updateUserInfo(clientInfoRequest);
         return mapper.objectToResponse(clientInfo);
     }
 
     @DeleteMapping("deleteUserInfo")
-    public void deleteUser(@RequestParam Long userId){
-        service.deleteUserInfo(userId);
+    public List<ClientInfoTabResponse> deleteUser(@RequestParam Long userId, @RequestParam Long infoTabId){
+        return mapper.objectToResponse(service.deleteUserInfo(userId, infoTabId));
     }
 
     @ExceptionHandler({UserInfoException.class})

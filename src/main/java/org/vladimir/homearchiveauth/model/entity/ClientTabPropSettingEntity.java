@@ -22,7 +22,7 @@ import lombok.ToString;
 @Table(name = "client_tab_prop_setting")
 public class ClientTabPropSettingEntity {
     @Id
-    @Column(name = "setting_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

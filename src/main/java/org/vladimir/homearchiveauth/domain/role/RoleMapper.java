@@ -16,8 +16,7 @@ import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper {
-    @Mapping(target = "name", source = "roleName")
-    @Mapping(target = "isAdmin", qualifiedByName = "initIsAdmin" ,source = "roleType")
+    @Mapping(target = "isAdmin", qualifiedByName = "initIsAdmin" ,source = "type")
     Role entityToObject(RoleEntity entity);
 
     Set<Role> entitiesToObjects(Set<RoleEntity> entities);
@@ -45,7 +44,7 @@ public interface RoleMapper {
         }
         final Set<String> roles = new HashSet<>(roleEntities.size());
         for (RoleEntity entity : roleEntities) {
-            roles.add(entity.getRoleName());
+            roles.add(entity.getName());
         }
         return roles;
     }
@@ -67,21 +66,20 @@ public interface RoleMapper {
         }
         final List<String> roles = new ArrayList<>(roleEntities.size());
         for (RoleEntity entity : roleEntities) {
-            roles.add(entity.getRoleName());
+            roles.add(entity.getName());
         }
         return roles;
     }
 
-    @Mapping(target = "roleType", ignore = true)
-    @Mapping(target = "roleName", source = "roleId")
+    @Mapping(target = "type", ignore = true)
+    @Mapping(target = "name", source = "id")
     @Mapping(target = "createDate", ignore = true)
     @Mapping(target = "modifyDate", ignore = true)
     RoleEntity requestToEntity(RoleRequest roleRequest);
 
     @Mapping(target = "createDate", ignore = true)
     @Mapping(target = "modifyDate", ignore = true)
-    @Mapping(target = "roleName", source = "name")
-    @Mapping(target = "roleType", ignore = true )
+    @Mapping(target = "type", ignore = true )
     RoleEntity objectToEntity(Role role);
 
 

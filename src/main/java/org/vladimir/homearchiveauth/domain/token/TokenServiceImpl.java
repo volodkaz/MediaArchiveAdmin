@@ -38,12 +38,12 @@ public class TokenServiceImpl implements TokenService {
         Instant exp = now.plus(expirationMinutes, ChronoUnit.MINUTES);
 
         final HashMap<String, Object> claims = new HashMap<>();
-        claims.put(ClaimNames.USER_ID.name(), client.clientId());
+        claims.put(ClaimNames.USER_ID.name(), client.id());
         claims.put(ClaimNames.ROLES.name(), List.copyOf(client.roles()));
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(client.clientName())
+                .setSubject(client.name())
                 .setIssuedAt(Date.from(now))
                 .setExpiration(Date.from(exp))
                 .setAudience(audience)

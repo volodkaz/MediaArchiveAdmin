@@ -1,4 +1,4 @@
 package org.vladimir.homearchiveauth.model.object;
 
-public record Role(Long roleId, String name, String comment, Boolean isAdmin) {
+public record Role(Long id, String name, String comment, Boolean isAdmin) {
 }

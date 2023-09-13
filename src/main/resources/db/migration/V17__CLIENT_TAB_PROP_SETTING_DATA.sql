@@ -1,7 +1,7 @@
-with cl_tab as (select ct.tab_id
+with cl_tab as (select ct.id tab_id
                 from client_tab ct
                 where ct."name" = 'Личные данные'),
-     cl_prop as (select ctp.prop_id
+     cl_prop as (select ctp.id prop_id
                  from client_tab_property ctp
                  where ctp."name" in ('Фамилия', 'Имя',
                                       'Отчество', 'Телефон', 'Электронная почта', 'Логин')
@@ -11,10 +11,10 @@ select tab_id, prop_id, current_timestamp
 from cl_tab, cl_prop;
 
 
-with cl_tab as (select ct.tab_id
+with cl_tab as (select ct.id tab_id
                 from client_tab ct
                 where ct."name" = 'Заметка'),
-     cl_prop as (select ctp.prop_id
+     cl_prop as (select ctp.id prop_id
                  from client_tab_property ctp
                  where ctp."name" in ('Заметка')
      )

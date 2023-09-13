@@ -17,9 +17,9 @@ const actionArray:  ActionAndInitStateAction<UserInfoState>[] =
         {action: deleteUserInfo, initStateAction: initStateForUserInfo}
     ]
 
-function initStateForUserInfo(state: UserInfoState, result:ActionResult<IUserTabContainer>) {
+function initStateForUserInfo(state: UserInfoState, result:ActionResult<IUserTab[]>) {
     state.isLoading = result.isLoading || false;
-    state.tabs = result.data?.tabs ? result.data.tabs : initialState.tabs;
+    state.tabs = result.data ? result.data : initialState.tabs;
 }
 
 const userInfoSlice = createSliceApp<UserInfoState>('userInfo', initialState, actionArray)

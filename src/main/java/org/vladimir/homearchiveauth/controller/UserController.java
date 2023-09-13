@@ -30,15 +30,14 @@ public class UserController {
 
     @GetMapping("/fetchUsers")
     public List<ClientResponse> getAllUsers(@RequestParam int limit){
-        List<ClientResponse> clients = clientService.getAllClients(limit);
-        return clients;
+        return clientService.getAllClients(limit);
     }
 
     @PostMapping("createUser")
     public ClientResponse createUser(@RequestBody ClientRequest clientRequest){
-//        assert clientRequest.clientId() != null && clientRequest.clientSecret() != null;
+//        assert clientRequest.tabId() != null && clientRequest.secret() != null;
         Client client = clientService.createUser(clientRequest);
-        return new ClientResponse(client.clientId(), client.clientName(), true, new ArrayList<>(client.roles()));
+        return new ClientResponse(client.id(), client.name(), true, new ArrayList<>(client.roles()));
     }
 
     @DeleteMapping("deleteUser")

@@ -28,9 +28,9 @@ const LoginForm: FC = () => {
 
     const clickHandler = async (values: UserAuthValidatorProps) => {
         if(isRegisterForm(location)){
-            await dispatch(registerUser({login: values.login, clientSecret: values.password} as IUserRequest))
+            await dispatch(registerUser({login: values.login, secret: values.password} as IUserRequest))
         }else{
-            await dispatch(loginUser({login: values.login, clientSecret: values.password} as IUserRequest))
+            await dispatch(loginUser({login: values.login, secret: values.password} as IUserRequest))
         }
     }
 

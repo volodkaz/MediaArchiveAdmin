@@ -9,12 +9,12 @@ interface UserAccordionBodyProps {
 }
 
 const UserAccordionBody: React.FC<UserAccordionBodyProps> = ({tab}) => {
-    switch (tab.tabType.name) {
+    switch (tab.tab.id) {
         case UserNotesTypeNames.USER_DETAILS: {
-            return (<UserDetailsBody tabProperties={tab.property}/>)
+            return (<UserDetailsBody tabProperties={tab.properties}/>)
         }
         case UserNotesTypeNames.USER_NOTES: {
-            return (<UserNoteBody data={tab.property[0].infos[0].data}/>)
+            return (<UserNoteBody data={tab.properties[0].infos[0].data}/>)
         }
         default: {
             return <div></div>

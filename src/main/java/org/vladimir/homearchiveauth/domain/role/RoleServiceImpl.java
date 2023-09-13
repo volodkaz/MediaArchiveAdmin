@@ -17,8 +17,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role getRoleByName(String name) {
-        final RoleEntity roleEntity = repository.findRoleByRoleName(name)
-                .orElseThrow(() -> new RuntimeException("Role with id " + name + " not found"));
+        final RoleEntity roleEntity = repository.findRoleByName(name)
+                .orElseThrow(() -> new RuntimeException("Role with tabId " + name + " not found"));
 
         return mapper.entityToObject(roleEntity);
     }
@@ -31,8 +31,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void createNewRole(RoleRequest roleRequest) {
-        if(repository.findRoleByRoleName(roleRequest.roleId()).isPresent()){
-            throw new RuntimeException("Role with id " + roleRequest.roleId() + " already created");
+        if(repository.findRoleByName(roleRequest.id()).isPresent()){
+            throw new RuntimeException("Role with tabId " + roleRequest.id() + " already created");
         }
         RoleEntity entity = mapper.requestToEntity(roleRequest);
 //        RoleEntity entity = mapper.objectToEntity(role);
@@ -41,12 +41,12 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void deleteRole(String roleId) {
-        repository.deleteByRoleName(roleId);
+        repository.deleteByName(roleId);
     }
 
     @Override
     public Set<Role> getAllRolesByNames(Set<String> roles) {
-        final Iterable<RoleEntity> entityIterable = repository.findAllByRoleNameIn(roles);
+        final Iterable<RoleEntity> entityIterable = repository.findAllByNameIn(roles);
         final HashSet<RoleEntity> entities = new HashSet<>();
 
         for (RoleEntity entity : entityIterable) {

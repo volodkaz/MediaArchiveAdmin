@@ -21,7 +21,7 @@ export interface CreateUserInfoTabContainerProps{
 
 export interface InfoTabRequest {
     name: string;
-    tabTypeId: number;
+    tabId: number;
     userId: number;
     comment: string;
 }

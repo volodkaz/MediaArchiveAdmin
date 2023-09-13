@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.vladimir.homearchiveauth.domain.client.ClientService;
-import org.vladimir.homearchiveauth.domain.role.RoleService;
 import org.vladimir.homearchiveauth.domain.token.TokenService;
 import org.vladimir.homearchiveauth.exception.LoginException;
 import org.vladimir.homearchiveauth.exception.RegistrationException;
@@ -64,7 +63,7 @@ public class AuthController {
         assert clientRequest != null;
         Client client = clientService.checkCredentials(clientRequest);
         final String token = tokenService.generateToken(client);
-        final ClientResponse clientResponse = new ClientResponse(client.clientId(), client.clientName(), true, new ArrayList<>(client.roles()));
+        final ClientResponse clientResponse = new ClientResponse(client.id(), client.name(), true, new ArrayList<>(client.roles()));
         return new AuthResponse(token, null, clientResponse, true);
     }
 
@@ -74,7 +73,7 @@ public class AuthController {
         Client client = clientService.checkCredentials(clientRequest);
         final String token = tokenService.generateToken(client);
         tokenService.getUserByToken(token);
-        final ClientResponse clientResponse = new ClientResponse(client.clientId(), client.clientName(), true, new ArrayList<>(client.roles()));
+        final ClientResponse clientResponse = new ClientResponse(client.id(), client.name(), true, new ArrayList<>(client.roles()));
         return new AuthResponse(token, null, clientResponse, true);
     }
 
@@ -104,7 +103,7 @@ public class AuthController {
         String clientName = tokenService.getUserByToken(token);
         final Client client = clientService.getClientByName(clientName);
         assert client != null;
-        final ClientResponse clientResponse = new ClientResponse(client.clientId(), client.clientName(),true,
+        final ClientResponse clientResponse = new ClientResponse(client.id(), client.name(),true,
                 new ArrayList<>(client.roles()));
         return new AuthResponse(token, null, clientResponse, true);
     }

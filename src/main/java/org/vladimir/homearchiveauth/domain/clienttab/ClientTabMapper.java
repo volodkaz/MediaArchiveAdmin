@@ -6,22 +6,20 @@ import org.vladimir.homearchiveauth.domain.DateMapper;
 import org.vladimir.homearchiveauth.domain.clienttabproperty.ClientTabPropertyMapper;
 import org.vladimir.homearchiveauth.model.entity.ClientTabEntity;
 import org.vladimir.homearchiveauth.model.object.ClientTab;
-import org.vladimir.homearchiveauth.model.object.ClientTabWithInfoData;
 import org.vladimir.homearchiveauth.model.request.ClientTabRequest;
 import org.vladimir.homearchiveauth.model.response.ClientTabResponse;
 
-@Mapper(componentModel = "spring", uses = {DateMapper.class, ClientTabPropertyMapper.class, ClientTabTypeMapper.class})
+import java.util.List;
+
+@Mapper(componentModel = "spring", uses = {DateMapper.class, ClientTabPropertyMapper.class})
 public interface ClientTabMapper {
-    @Mapping(target = "tabType", source = "type")
     ClientTab entityToObject(ClientTabEntity entity);
 
-    @Mapping(target = "id", source = "tab.id")
-    @Mapping(target = "name", source = "tab.name")
-    @Mapping(target = "comment", source = "tab.comment")
-    @Mapping(target = "tabType", source = "tab.tabType")
-    ClientTabResponse objectToResponse(ClientTabWithInfoData tab);
+    ClientTabResponse objectToResponse(ClientTab tab);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "type.id", source = "tabTypeId")
-    ClientTabEntity requestToObject(ClientTabRequest request);
+    ClientTab requestToObject(ClientTabRequest request);
+
+    List<ClientTabResponse> objectsToResponses(List<ClientTab> tabTypes);
+
+    List<ClientTab> entitiesToObjects(Iterable<ClientTabEntity> tabEntities);
 }

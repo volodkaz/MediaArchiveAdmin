@@ -20,7 +20,7 @@ const CreateUserContainer: React.FC<CreateUserContainerProps> = React.memo(
         const addUser = useCallback(async (values: UserValidationProps) => {
             await dispatch(createUser({
                 login: values.login,
-                clientSecret: values.password,
+                secret: values.password,
                 roles: localRoles.map(role => role.roleId)
             } as IUserRegisterRequest))
                 .then((data) => {
