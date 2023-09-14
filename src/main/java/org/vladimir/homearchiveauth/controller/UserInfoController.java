@@ -39,10 +39,9 @@ public class UserInfoController {
 
     @PostMapping("createUserInfo")
     public List<ClientInfoTabResponse> createUserInfo(@RequestBody ClientTabRequest request){
-//        assert clientRequest.tabId() != null && clientRequest.secret() != null;
+        assert(request.tabId() != null && request.userId() != null);
         List<ClientInfoTab> clientInfo = service.createUserInfo(request);
-        final List<ClientInfoTab> clientInfo1 = service.getClientInfo(request.userId());
-        return mapper.objectToResponse(clientInfo1);
+        return mapper.objectToResponse(clientInfo);
     }
 
     @PostMapping("updateUserInfo")
