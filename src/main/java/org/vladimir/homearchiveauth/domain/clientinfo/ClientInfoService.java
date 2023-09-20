@@ -13,5 +13,5 @@ public interface ClientInfoService {
 
     List<ClientInfoTab> updateUserInfo(ClientInfoContainerRequest request);
 
-    List<ClientInfoTab> deleteUserInfo(Long userId, Long infoTabId);
+    List<ClientInfoTab> deleteUserInfo(Long infoTabId);
 }

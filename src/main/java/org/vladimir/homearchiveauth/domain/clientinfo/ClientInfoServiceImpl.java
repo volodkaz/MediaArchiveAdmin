@@ -83,8 +83,14 @@ public class ClientInfoServiceImpl implements ClientInfoService {
     }
 
     @Override
-    public List<ClientInfoTab> deleteUserInfo(Long userId, Long infoTabId) {
+    public List<ClientInfoTab> deleteUserInfo(Long infoTabId) {
+
+        final ClientInfoTabEntity clientInfoTabEntity = repository.findById(infoTabId)
+                .orElseThrow(() -> new RuntimeException("Не найдена вкладка с id " + infoTabId));
+
         repository.deleteActiveTab(infoTabId);
-        return getClientInfo(userId);
+
+
+        return getClientInfo(clientInfoTabEntity.getClientId());
     }
 }

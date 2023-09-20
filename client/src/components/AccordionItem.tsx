@@ -9,14 +9,12 @@ export interface IAccordionItem extends IItemProps{
 
 export interface AccordionItemProps<T extends IAccordionItem>{
     tab: T;
-    props?: {};
-    isActive: boolean;
-    setActive: (item: T) => void;
 }
 
 function AccordionItem<T extends IAccordionItem>(props: AccordionItemProps<T>) {
+
     return (
-        <Accordion.Item eventKey={String(props.tab.id)} {...props.props}>
+        <Accordion.Item eventKey={String(props.tab.id)}>
             <Accordion.Header>{props.tab.name}</Accordion.Header>
             {props.tab.item}
         </Accordion.Item>

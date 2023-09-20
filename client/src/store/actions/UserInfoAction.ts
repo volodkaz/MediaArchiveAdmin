@@ -22,7 +22,7 @@ export const deleteUserInfo = createAppAsyncThunk(
     'userInfo/deleteUserInfo',
     async (id:number, {rejectWithValue, dispatch}) => {
         return await asyncThunkBody<number, IUserTab[]>(id, dispatch, rejectWithValue,
-            () => $api.delete<IUserTab[]>(`${userInfo.deleteUserInfo}?userId=${id}`), 'Ошибка при удалении пользовательских данных');
+            () => $api.delete<IUserTab[]>(`${userInfo.deleteUserInfo}?infoTabId=${id}`), 'Ошибка при удалении пользовательских данных');
     }
 )
 export const fetchUserInfo = createAppAsyncThunk(

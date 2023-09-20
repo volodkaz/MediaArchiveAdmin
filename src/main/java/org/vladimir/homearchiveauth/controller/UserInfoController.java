@@ -39,7 +39,7 @@ public class UserInfoController {
 
     @PostMapping("createUserInfo")
     public List<ClientInfoTabResponse> createUserInfo(@RequestBody ClientTabRequest request){
-        assert(request.tabId() != null && request.userId() != null);
+        assert request.tabId() != null && request.userId() != null : "Не указаны обязательные параметры";
         List<ClientInfoTab> clientInfo = service.createUserInfo(request);
         return mapper.objectToResponse(clientInfo);
     }
@@ -52,8 +52,8 @@ public class UserInfoController {
     }
 
     @DeleteMapping("deleteUserInfo")
-    public List<ClientInfoTabResponse> deleteUser(@RequestParam Long userId, @RequestParam Long infoTabId){
-        return mapper.objectToResponse(service.deleteUserInfo(userId, infoTabId));
+    public List<ClientInfoTabResponse> deleteUser(@RequestParam Long infoTabId){
+        return mapper.objectToResponse(service.deleteUserInfo(infoTabId));
     }
 
     @ExceptionHandler({UserInfoException.class})

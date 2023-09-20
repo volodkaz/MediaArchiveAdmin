@@ -93,6 +93,6 @@ class ClientInfoServiceTest {
 
     @Test
     void deleteUserInfo() {
-        service.deleteUserInfo(client.id(), 3L);
+        service.deleteUserInfo(3L);
     }
 }

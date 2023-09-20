@@ -19,7 +19,7 @@ export function isEqualsUsersInfo(next: IUserTab[], prev:IUserTab[]): boolean {
                 .filter(prevTab => nextTab.properties
                     .every(nextTab => nextTab.id === prevTab.id
                         && nextTab.name === prevTab.name
-                        && nextTab.comment === prevTab.comment
+                        && nextTab.property.comment === prevTab.property.comment
                     )).length !== 0){
                 return false;
             }

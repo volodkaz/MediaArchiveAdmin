@@ -1,11 +1,12 @@
 import React from 'react';
-import {Accordion, Container, FormLabel} from "react-bootstrap";
+import {Accordion, Col, Container, Form, Row} from "react-bootstrap";
 import {IUserTabProperty} from "../../../models/IUser";
 import {UserInfoProperty} from "../../../utils/constants";
 
-interface UserDetailsBodyProps{
+interface UserDetailsBodyProps {
     tabProperties: IUserTabProperty[];
 }
+
 const UserDetailsBody: React.FC<UserDetailsBodyProps> = ({tabProperties}) => {
     return (
         <Accordion.Body>
@@ -20,46 +21,72 @@ const UserDetailsBody: React.FC<UserDetailsBodyProps> = ({tabProperties}) => {
                 </Container>
             </Container>
             <Container className={"row"}>
-                <Container className={"col-2"}>
-                    <FormLabel>{tabProperties[UserInfoProperty.firstName].name}</FormLabel>
-                </Container>
-                <Container className={"col-4"}>
-                    {tabProperties[UserInfoProperty.firstName].infos[0].data || "Фамилия"}
-                </Container>
-                <Container className={"col-2"}>
-                    <FormLabel>{tabProperties[UserInfoProperty.login].name}</FormLabel>
-                </Container>
-                <Container className={"col-4"}>
-                    {tabProperties[UserInfoProperty.login].infos[0].data}
-                </Container>
-            </Container>
-            <Container className={"row"}>
-                <Container className={"col-2"}>
-                    <FormLabel>{tabProperties[UserInfoProperty.secondName].name}</FormLabel>
-                </Container>
-                <Container className={"col-4"}>
-                    {tabProperties[UserInfoProperty.secondName].infos[0].data || "Имя"}
-                </Container>
-                <Container className={"col-2"}>
-                    <FormLabel>{tabProperties[UserInfoProperty.emails].name}</FormLabel>
-                </Container>
-                <Container className={"col-4"}>
-                    {tabProperties[UserInfoProperty.emails].infos[0].data || "Электронная почта"}
-                </Container>
-            </Container>
-            <Container className={"row"}>
-                <Container className={"col-2"}>
-                    <FormLabel>{tabProperties[UserInfoProperty.patronymic].name}</FormLabel>
-                </Container>
-                <Container className={"col-4"}>
-                    {tabProperties[UserInfoProperty.patronymic].infos[0].data || "Отчество"}
-                </Container>
-                <Container className={"col-2"}>
-                    <FormLabel>{tabProperties[UserInfoProperty.phoneNumbers].name}</FormLabel>
-                </Container>
-                <Container className={"col-4"}>
-                    {tabProperties[UserInfoProperty.phoneNumbers].infos[0].data || "Телефон"}
-                </Container>
+                <Form as={Col} className="col-6">
+                    <Form.Group as={Row} className={'mb-3'} controlId="formFirstName">
+                        <Form.Label column sm="4">
+                            {tabProperties[UserInfoProperty.firstName].property.name}
+                        </Form.Label>
+                        <Col sm="8">
+                            <Form.Control plaintext readOnly
+                                          defaultValue={tabProperties[UserInfoProperty.firstName].infos[0].data || "Фамилия"}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className={'mb-3'} controlId="formLogin">
+                        <Form.Label column sm="4">
+                            {tabProperties[UserInfoProperty.secondName].property.name}
+                        </Form.Label>
+                        <Col sm="8">
+                            <Form.Control plaintext readOnly
+                                          defaultValue={tabProperties[UserInfoProperty.secondName].infos[0].data || "Логин"}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className={'mb-3'} controlId="formLogin">
+                        <Form.Label column sm="4">
+                            {tabProperties[UserInfoProperty.patronymic].property.name}
+                        </Form.Label>
+                        <Col sm="8">
+                            <Form.Control plaintext readOnly
+                                          defaultValue={tabProperties[UserInfoProperty.patronymic].infos[0].data || "Логин"}
+                            />
+                        </Col>
+                    </Form.Group>
+
+                </Form>
+                <Form as={Col} className="col-6">
+                    <Form.Group as={Row} className={'mb-3'} controlId="formFirstName">
+                        <Form.Label column sm="4">
+                            {tabProperties[UserInfoProperty.login].property.name}
+                        </Form.Label>
+                        <Col sm="8">
+                            <Form.Control plaintext readOnly
+                                          defaultValue={tabProperties[UserInfoProperty.login].infos[0].data || "Логин"}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className={'mb-3'} controlId="formLogin">
+                        <Form.Label column sm="4">
+                            {tabProperties[UserInfoProperty.phoneNumbers].property.name}
+                        </Form.Label>
+                        <Col sm="8">
+                            <Form.Control plaintext readOnly
+                                          defaultValue={tabProperties[UserInfoProperty.phoneNumbers].infos[0].data || "Телефон"}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className={'mb-3'} controlId="formLogin">
+                        <Form.Label column sm="4">
+                            {tabProperties[UserInfoProperty.emails].property.name}
+                        </Form.Label>
+                        <Col sm="8">
+                            <Form.Control plaintext readOnly
+                                          defaultValue={tabProperties[UserInfoProperty.emails].infos[0].data || "Элекронная почта"}
+                            />
+                        </Col>
+                    </Form.Group>
+
+                </Form>
             </Container>
         </Accordion.Body>
     );

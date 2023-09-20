@@ -4,12 +4,13 @@ import {UserContentContainerProps} from "../../../models/component/admin";
 import {useTypedDispatch, useTypedSelector} from "../../../hook/useTypedSelector";
 import {getUserInfo, isEqualsUsersInfo, isUserInfoLoading} from "../../../store/endpoints/userInfo";
 import {tabInitialState} from "../../../models/IUser";
-import {fetchUserInfo} from "../../../store/actions/UserInfoAction";
+import {deleteUserInfo, fetchUserInfo} from "../../../store/actions/UserInfoAction";
 import CreateUserInfoTabContainer from "../../modal/userinfo/CreateUserInfoTabContainer";
+import {AccordionEventKey} from "react-bootstrap/AccordionContext";
 
 const UserContentContainer: React.FC<UserContentContainerProps> = ({userId, login}) => {
     console.log('UserContentContainer')
-    const [activeTab, setActiveTab] = useState<IUserAccordionItem>(tabInitialState);
+    const [activeTab, setActiveTab] = useState<AccordionEventKey>(null);
     const tabs = useTypedSelector(getUserInfo)
     const isLoading = useTypedSelector(isUserInfoLoading)
     const [isShowCreateUserTabModal, setShowCreateUserTabModal] = useState(false);
@@ -20,13 +21,18 @@ const UserContentContainer: React.FC<UserContentContainerProps> = ({userId, logi
         dispatch(fetchUserInfo(userId))
     }, [userId])
 
-    const setActiveTabHandler = useCallback((tab: IUserAccordionItem) => setActiveTab(tab), []);
+    const setActiveTabHandler = useCallback((event: AccordionEventKey) => {
+
+        setActiveTab(event)
+    }, []);
     const removeTabHandler = useCallback((id : number) => {
-        // dispatch(deleteUserInfo)
-    }, []);
+        console.log(activeTab)
+        dispatch(deleteUserInfo(Number(activeTab)))
+    }, [activeTab]);
     const editTabHandler = useCallback(() => {
+        console.log(activeTab)
         // dispatch(deleteUserInfo)
-    }, []);
+    }, [activeTab]);
     const addTabHandler = useCallback(() => {
         setShowCreateUserTabModal(true)
         // dispatch(deleteUserInfo)

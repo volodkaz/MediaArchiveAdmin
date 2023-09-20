@@ -1,6 +1,7 @@
 import {IUser, IUserInfo, IUserTab} from "../IUser";
 import {Role} from "../store/role";
 import {IUserAccordionItem} from "../../components/admin/user/UserContent";
+import {AccordionEventKey} from "react-bootstrap/AccordionContext";
 
 export interface AdminUsersProps{
     users: IUser[];
@@ -20,8 +21,8 @@ export interface UserContentContainerProps {
 export interface UserContentProps {
     tabs: IUserTab[];
     activeUserId: number;
-    activeTab: IUserAccordionItem;
-    setActive: (tab: IUserAccordionItem) => void;
+    activeTab: AccordionEventKey;
+    setActive: (event: AccordionEventKey) => void;
     addTabHandler: () => void;
     editTabHandler: () => void;
     deleteTabHandler: (id: number) => void;

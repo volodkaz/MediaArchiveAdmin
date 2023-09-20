@@ -5,6 +5,7 @@ import AccordionList from "../../AccordionList";
 import {IUserTab} from "../../../models/IUser";
 import AccordionItem, {IAccordionItem} from "../../AccordionItem";
 import UserAccordionBody from "./UserAccordionBody";
+import {AccordionEventKey} from "react-bootstrap/AccordionContext";
 
 export interface IUserAccordionItem extends IAccordionItem {
 
@@ -12,6 +13,7 @@ export interface IUserAccordionItem extends IAccordionItem {
 
 const UserContent: React.FC<UserContentProps> = ({tabs, activeTab, setActive, deleteTabHandler,
                                                      isLoading, editTabHandler, addTabHandler, saveTabHandler, activeUserId}) => {
+
     return (
         <Container className={'border border-2 rounded-2 adminNameCol'}>
             { isLoading && <Spinner animation={"grow"}/> }
@@ -24,18 +26,27 @@ const UserContent: React.FC<UserContentProps> = ({tabs, activeTab, setActive, de
                 </Button>
                 <Button variant="outline-primary"
                         onClick={editTabHandler}
-                        disabled={!!activeTab}
+                        disabled={!activeTab}
                 >
                     Изменить вкладка
                 </Button>
                 <Button variant="outline-primary"
-                        onClick={() => deleteTabHandler(activeTab.id)}
-                        disabled={!!activeTab}
+                        onClick={() => {
+                            if(activeTab){
+                                deleteTabHandler(Number(activeTab));
+                            }
+                        }}
+                        disabled={!activeTab}
                 >
                     Удалить влкладку
                 </Button>
             </ButtonGroup>
             <AccordionList<IUserTab>
+                props={
+                    {
+                        onSelect: event => setActive(event)
+                    }
+                }
                 tabs={tabs}
                 renderType={
                     (tabItem) =>
@@ -48,8 +59,6 @@ const UserContent: React.FC<UserContentProps> = ({tabs, activeTab, setActive, de
                                     item: <UserAccordionBody tab={tabItem}/>
                                 }
                             }
-                            isActive={tabItem.id === activeTab.id}
-                            setActive={setActive}
                             key={tabItem.id}
                         />
                 }

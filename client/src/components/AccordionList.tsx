@@ -1,6 +1,7 @@
 import React from 'react';
 import {Accordion, AccordionProps} from 'react-bootstrap';
 import {IUserInfoItemProperty} from "../models/IUser";
+import {AccordionEventKey} from "react-bootstrap/AccordionContext";
 
 
 export interface IAccordionList<T extends IUserInfoItemProperty>{
@@ -10,8 +11,9 @@ export interface IAccordionList<T extends IUserInfoItemProperty>{
 }
 
 function AccordionList<T extends IUserInfoItemProperty>(props : IAccordionList<T>){
+
     return (
-        <Accordion>
+        <Accordion {...props.props}>
             {props.tabs.length > 0 ? props.tabs.filter(tab => tab.id).map(props.renderType) : <div></div>}
         </Accordion>
 

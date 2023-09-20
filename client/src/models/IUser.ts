@@ -18,7 +18,8 @@ export const userInitialState: IUser = {
 export interface IUserInfoItemProperty extends IItemProps{
     comment:string;
 }
-export interface IUserTabProperty extends IUserInfoItemProperty{
+export interface IUserTabProperty extends IItemProps {
+    property: IUserInfoItemProperty;
     infos: IUserInfo[];
 }
 export interface IUserTabType extends IItemProps{
