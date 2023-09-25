@@ -1,5 +1,6 @@
 package org.vladimir.homearchiveauth.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,8 @@ public class ClientTabPropertyEntity extends TimeStampedEntity{
 
     private String name;
     private String comment;
+    @Column(name = "form_label")
+    private String formLabel;
 
     @Override
     public boolean equals(Object o) {
