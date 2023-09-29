@@ -21,11 +21,12 @@ export interface UserContentContainerProps {
 export interface UserContentProps {
     tabs: IUserTab[];
     activeUserId: number;
-    activeTab: AccordionEventKey;
+    // activeTab: AccordionEventKey;
     setActive: (event: AccordionEventKey) => void;
-    addTabHandler: () => void;
-    editTabHandler: () => void;
-    deleteTabHandler: (id: number) => void;
-    saveTabHandler:(tab: IUserAccordionItem) => void;
+    // addTabHandler: () => void;
+    // editTabHandler: () => void;
+    // deleteTabHandler: (id: number) => void;
+    // saveTabHandler:(tab: IUserAccordionItem) => void;
     isLoading: boolean;
+    // isEdit:boolean;
 }

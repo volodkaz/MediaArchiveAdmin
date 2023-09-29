@@ -1,17 +1,18 @@
 import React from 'react';
-import UserDetailsBody from "./UserDetailsBody";
 import UserNoteBody from "./UserNoteBody";
 import {IUserTab} from "../../../models/IUser";
 import {UserNotesTypeNames} from "../../../utils/constants";
+import UserDetailsBodyContainer from "./UserDetailsBodyContainer";
 
 interface UserAccordionBodyProps {
     tab: IUserTab;
+    userId: number;
 }
 
-const UserAccordionBody: React.FC<UserAccordionBodyProps> = ({tab}) => {
+const UserAccordionBody: React.FC<UserAccordionBodyProps> = ({tab, userId}) => {
     switch (tab.tab.id) {
         case UserNotesTypeNames.USER_DETAILS: {
-            return (<UserDetailsBody tabProperties={tab.properties}/>)
+            return (<UserDetailsBodyContainer tab={tab} userId={userId}/>)
         }
         case UserNotesTypeNames.USER_NOTES: {
             return (<UserNoteBody data={tab.properties[0].infos[0].data}/>)

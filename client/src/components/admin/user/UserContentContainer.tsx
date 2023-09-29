@@ -1,19 +1,20 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import UserContent, {IUserAccordionItem} from "./UserContent";
+import UserContent from "./UserContent";
 import {UserContentContainerProps} from "../../../models/component/admin";
 import {useTypedDispatch, useTypedSelector} from "../../../hook/useTypedSelector";
-import {getUserInfo, isEqualsUsersInfo, isUserInfoLoading} from "../../../store/endpoints/userInfo";
-import {tabInitialState} from "../../../models/IUser";
+import {getUserInfo, isUserInfoLoading} from "../../../store/endpoints/userInfo";
 import {deleteUserInfo, fetchUserInfo} from "../../../store/actions/UserInfoAction";
 import CreateUserInfoTabContainer from "../../modal/userinfo/CreateUserInfoTabContainer";
 import {AccordionEventKey} from "react-bootstrap/AccordionContext";
+import ButtonGroupWithAttach from "../../ButtonGroupWithAttach";
+import {tabUserInfoFormSetEdit, tabUserInfoSetActive, tabUserInfoSetReset} from "../../../store/reducers/UserInfoSlice";
 
 const UserContentContainer: React.FC<UserContentContainerProps> = ({userId, login}) => {
     console.log('UserContentContainer')
-    const [activeTab, setActiveTab] = useState<AccordionEventKey>(null);
     const tabs = useTypedSelector(getUserInfo)
     const isLoading = useTypedSelector(isUserInfoLoading)
     const [isShowCreateUserTabModal, setShowCreateUserTabModal] = useState(false);
+    const {isEdit, tabId: activeTab} = useTypedSelector(state => state.userInfoReducer.formUpdateData)
 
     const dispatch = useTypedDispatch()
 
@@ -22,33 +23,44 @@ const UserContentContainer: React.FC<UserContentContainerProps> = ({userId, logi
     }, [userId])
 
     const setActiveTabHandler = useCallback((event: AccordionEventKey) => {
-
-        setActiveTab(event)
+        dispatch(tabUserInfoSetActive(event))
+        dispatch(tabUserInfoFormSetEdit(false))
     }, []);
-    const removeTabHandler = useCallback((id : number) => {
-        console.log(activeTab)
+    const removeTabHandler = useCallback((id: number) => {
         dispatch(deleteUserInfo(Number(activeTab)))
     }, [activeTab]);
     const editTabHandler = useCallback(() => {
-        console.log(activeTab)
-        // dispatch(deleteUserInfo)
-    }, [activeTab]);
+        dispatch(tabUserInfoFormSetEdit(!isEdit))
+    }, [isEdit]);
     const addTabHandler = useCallback(() => {
         setShowCreateUserTabModal(true)
-        // dispatch(deleteUserInfo)
     }, []);
-    const saveTabHandler = useCallback((tab : IUserAccordionItem) => {
-        // dispatch(deleteUserInfo)
+
+    const cancelEditTabHandler = useCallback(() => {
+        dispatch(tabUserInfoSetReset(true))
     }, []);
 
     return (
-        <div className={'container-fluid'}>
-            <UserContent tabs={tabs} setActive={setActiveTabHandler} activeTab={activeTab} deleteTabHandler={removeTabHandler}
-                         isLoading={isLoading} editTabHandler={editTabHandler} addTabHandler={addTabHandler} saveTabHandler={saveTabHandler}
-                         activeUserId={userId}
-            />
-            <CreateUserInfoTabContainer show={isShowCreateUserTabModal} setShow={setShowCreateUserTabModal} userId={userId}/>
-        </div>
+
+        <ButtonGroupWithAttach
+            activeTab={activeTab || 0}
+            activeUserId={userId}
+            addTabHandler={addTabHandler}
+            editTabHandler={editTabHandler}
+            deleteTabHandler={removeTabHandler}
+            isHideSaveButtonGroup={!isEdit}
+            formId={'formBodyUserData'}
+            resetTabHandler={cancelEditTabHandler}
+            renderProps={
+                <div className={'container-fluid'}>
+                    <UserContent tabs={tabs} setActive={setActiveTabHandler}
+                                 isLoading={isLoading} activeUserId={userId}
+                    />
+                    <CreateUserInfoTabContainer show={isShowCreateUserTabModal} setShow={setShowCreateUserTabModal}
+                                                userId={userId}/>
+                </div>
+            }
+        />
     );
 };
 

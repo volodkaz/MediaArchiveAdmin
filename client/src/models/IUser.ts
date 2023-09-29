@@ -1,6 +1,8 @@
 import {IItemProps} from "./index";
 import {UserNotesTypeNames} from "../utils/constants";
 import {IUserAccordionItem} from "../components/admin/user/UserContent";
+import {UseFormReset} from "react-hook-form/dist/types/form";
+import {FieldValues} from "react-hook-form";
 
 export interface IUser extends IItemProps{
     isActivated: boolean;
@@ -31,9 +33,14 @@ export interface IUserTab extends IUserInfoItemProperty{
     properties: IUserTabProperty[];
 }
 
-export interface IUserInfo extends IItemProps{
+export interface IUserInfo{
+    id: number;
     data: string;
     modifyUserId: string;
+}
+export interface IUserInfoContainerRequest{
+    useId: number;
+    infos: IUserInfo[];
 }
 
 export interface IUserTabContainer{
@@ -44,4 +51,10 @@ export const tabInitialState : IUserAccordionItem = {
     name : "",
     type : UserNotesTypeNames.DEFAULT,
     item : ""
+}
+
+export interface IUserInfoActiveTab {
+    tabId?: number;
+    isEdit?: boolean;
+    isReset?: boolean;
 }

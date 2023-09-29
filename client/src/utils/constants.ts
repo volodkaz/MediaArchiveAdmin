@@ -11,12 +11,12 @@ export enum ThunkStatus{
 }
 
 export enum UserInfoProperty{
-    firstName,
-    secondName,
-    patronymic,
-    phoneNumbers,
-    emails,
-    login
+    firstName = 'firstName',
+    secondName = 'secondName',
+    patronymic = 'patronymic',
+    phoneNumbers = 'phoneNumbers',
+    emails = 'emails',
+    login = 'login'
 }
 
 export enum UserNotesTypeNames {

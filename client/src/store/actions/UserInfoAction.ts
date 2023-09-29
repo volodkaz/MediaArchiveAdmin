@@ -1,6 +1,6 @@
 import {asyncThunkBody} from "./action";
 import $api, {createAppAsyncThunk} from "../../http/index";
-import {IUserInfo, IUserTab, IUserTabContainer} from "../../models/IUser";
+import {IUserInfo, IUserInfoContainerRequest, IUserTab} from "../../models/IUser";
 import {userInfo} from "../../utils/endpoints";
 import {InfoTabRequest} from "../../components/modal/userinfo/CreateUserInfoProps";
 
@@ -11,10 +11,10 @@ export const createUserInfo = createAppAsyncThunk<IUserInfo, InfoTabRequest>(
             () => $api.post<IUserTab[]>(userInfo.createUserInfo, userInfoTabRequest), 'Ошибка при создании пользовательских данных');
     }
 )
-export const updateUserInfo = createAppAsyncThunk<IUserInfo, IUserInfo>(
+export const updateUserInfo = createAppAsyncThunk<IUserTab[], IUserInfoContainerRequest>(
     'userInfo/updateUserInfo',
-    async (userInfoRequest:IUserInfo, {rejectWithValue, dispatch}) => {
-        return await asyncThunkBody<IUserInfo, IUserTab[]>(userInfoRequest, dispatch, rejectWithValue,
+    async (userInfoRequest:IUserInfoContainerRequest, {rejectWithValue, dispatch}) => {
+        return await asyncThunkBody<IUserInfoContainerRequest, IUserTab[]>(userInfoRequest, dispatch, rejectWithValue,
             () => $api.post<IUserTab[]>(userInfo.updateUserInfo, userInfoRequest), 'Ошибка при обновлении пользовательских данных');
     }
 )
